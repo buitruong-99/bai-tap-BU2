@@ -3,13 +3,12 @@ package bai2;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DanhSachHangDoi dsHangDoi = new DanhSachHangDoi();
         int choose;
         boolean exit = true;
-        String soCMNDMuaVe;
-        KhachHangManager manager = new KhachHangManager();
         System.out.println("Chọn chức năng");
         System.out.println("1. Thêm một khách hàng mới vào hàng đợi mua vé\n" +
                 "2. Bán 1 vé cho khách hàng. Chỉ bán cho người đăng ký trước\n" +
@@ -22,33 +21,45 @@ public class Main {
                 "Số bất kỳ để thoát.\n");
         do {
             choose = scanner.nextInt();
-            switch (choose) {
+            switch (choose){
                 case 1:
-                    manager.add();
+                    System.out.print("Nhập số CMND: ");
+                    scanner.nextLine();
+                    String soCMND = scanner.nextLine();
+                    System.out.print("Nhập tên KH: ");
+                    String tenKH = scanner.nextLine();
+                    System.out.print("Nhập ga đến: ");
+                    String gaDen = scanner.nextLine();
+                    System.out.print("Nhập giá vé: ");
+                    double giaVe = scanner.nextDouble();
+                    KhachHang khachHang = new KhachHang(soCMND, tenKH, gaDen, giaVe);
+                    dsHangDoi.themKhachHang(khachHang);
                     break;
                 case 2:
-                    manager.banve();
+                    dsHangDoi.banVe();
                     break;
                 case 3:
-                    System.out.printf("%-20s %-20s %-20s %20s\n", "Số CMND", "Tên KH", "Ga đến", "Giá tiền");
-                    manager.dsKhachHang();
+                    System.out.printf("%-20s %-20s %-20s %5s\n", "Số CMND", "Tên KH", "Ga đến", "Giá tiền");
+                    dsHangDoi.hienThiDSKhachHang();
                     break;
                 case 4:
-                    manager.deleteKH();
+                     dsHangDoi.xoaKhachHangDSCho();
                     break;
                 case 5:
+                    dsHangDoi.thongKe();
                     break;
                 case 6:
+                    dsHangDoi.saveDs();
                     break;
                 case 7:
+                    System.out.printf("%3s %20s\n", "Số STT","Ga đến");
+                    dsHangDoi.dsGaChoMuaVe();
                     break;
                 case 8:
-                    break;
-                default:
-                    System.out.println("Kết thúc");
-                    exit = false;
-                    break;
+                    System.out.printf("%3s %20s\n", "Số vé","Ga đến");
+                    dsHangDoi.dsGaChoVaSoVe();
             }
+
         }while (exit);
     }
 }

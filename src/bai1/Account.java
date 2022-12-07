@@ -7,7 +7,8 @@ public class Account {
     private long numberAccount;
     private String nameAccount;
     private double balance;
-    Scanner scanner = new Scanner(System.in);
+
+    private final double RATE = 0.035;
 
     public Account() {
     }
@@ -16,6 +17,12 @@ public class Account {
         this.numberAccount = numberAccount;
         this.nameAccount = nameAccount;
         this.balance = balance;
+    }
+
+    public Account(long numberAccount, String nameAccount) {
+        this.numberAccount = numberAccount;
+        this.nameAccount = nameAccount;
+        this.balance = 50;
     }
 
     public long getNumberAccount() {
@@ -42,56 +49,56 @@ public class Account {
         this.balance = balance;
     }
 
-    @Override
-    public String toString() {
-        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        String balanceFormat = currencyInstance.format(balance);
-        return "Account{" +
-                "numberAccount=" + numberAccount +
-                ", nameAccount='" + nameAccount + '\'' +
-                ", balance=" + balanceFormat +
-                '}';
+    public double getRATE() {
+        return RATE;
     }
-    public double napTien(){
-        double naptien;
-        System.out.print("Nhập số tiền cần nạp: ");
-        naptien = scanner.nextDouble();
-        if (naptien > 0){
-            balance = balance + naptien;
-            NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-            String balanceFormat = currencyInstance.format(naptien);
-            System.out.println("Nap " +balanceFormat +"VND thành công");
-        }
-        else System.out.println("Số tiền không hợp lệ, nhập lại.");
 
-        return naptien;
+    static Scanner scanner = new Scanner(System.in);
+
+    //Nạp tiền
+    public double napTien() {
+        double soTienNap;
+        System.out.print("Nhập số tiền bạn cần nạp: ");
+        soTienNap = scanner.nextDouble();
+        if (soTienNap >= 0) {
+            balance = soTienNap + balance;
+            NumberFormat currencyEN = NumberFormat.getCurrencyInstance();
+            String formatBalance = currencyEN.format(soTienNap);
+            System.out.println("bạn vừa nạp " + formatBalance + " vào tài khoản.");
+        } else {
+            System.out.println("Số tiền nạp vào không hợp lệ!");
+        }
+        return soTienNap;
     }
-    public double rutTien(){
+
+    //Rut tien
+    public double rutTien() {
         double phiRut = 5;
         double rutTien;
         System.out.print("Nhập số tiền cần rút: ");
         rutTien = scanner.nextDouble();
-        if (rutTien <= (balance-phiRut)){
-            balance = balance - (rutTien+phiRut);
+        if (rutTien <= (balance - phiRut)) {
+            balance = balance - (rutTien + phiRut);
             NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
             String balanceFormat = currencyInstance.format(rutTien);
-            System.out.println("Thuc hien rut "+balanceFormat +"VND thanh cong. Phi rut tien "+phiRut);
-        }
-        else System.out.println("Số dư không đủ rút.");
+            System.out.println("Thuc hien rut " + balanceFormat + "VND thanh cong. Phi rut tien " + phiRut);
+        } else System.out.println("Số dư không đủ rút.");
         return rutTien;
     }
-    public double daoHan(){
-        double laiSuat = 0.035;
-        balance = balance + (balance * laiSuat);
-        NumberFormat instance = NumberFormat.getCurrencyInstance();
-        String balanceFormat = instance.format(balance);
-        System.out.println("Nhận số tiền: "+balanceFormat +" từ đáo hạn.");
-        return balance;
-    }
-    public void displayAccount(){
+     // đáo hạn
+     public double daoHan() {
+         balance = balance + (balance * RATE);
+         NumberFormat instance = NumberFormat.getCurrencyInstance();
+         String balanceFormat = instance.format(balance);
+         System.out.println("Nhận số tiền: " + balanceFormat + " từ đáo hạn.");
+         return balance;
+     }
+
+
+    //Danh sách tài khoản
+    public void displayAccount() {
         NumberFormat instance = NumberFormat.getCurrencyInstance();
         String balnaceFormat = instance.format(balance);
-        System.out.printf("%-10d %-20s %-20s\n", numberAccount ,nameAccount ,balnaceFormat);
+        System.out.printf("%-10d %-20s %-20s\n", numberAccount, nameAccount, balnaceFormat);
     }
-
 }

@@ -1,15 +1,10 @@
 package bai2;
 
-import java.io.Serializable;
-
-public class KhachHang implements Serializable {
+public class KhachHang {
     private String soCmnd;
     private String tenKh;
     private String gaDen;
     private double giaTien;
-
-    public KhachHang() {
-    }
 
     public KhachHang(String soCmnd, String tenKh, String gaDen, double giaTien) {
         this.soCmnd = soCmnd;
@@ -17,6 +12,14 @@ public class KhachHang implements Serializable {
         this.gaDen = gaDen;
         this.giaTien = giaTien;
     }
+
+    public KhachHang() {
+    }
+
+    public KhachHang(String soCmnd) {
+        this.soCmnd = soCmnd;
+    }
+
 
     public String getSoCmnd() {
         return soCmnd;
@@ -42,14 +45,11 @@ public class KhachHang implements Serializable {
         this.gaDen = gaDen;
     }
 
-    public Double getGiaTien() {
+    public double getGiaTien() {
         return giaTien;
     }
 
     public void setGiaTien(double giaTien) {
         this.giaTien = giaTien;
-    }
-    public void themKhachHang(){
-
     }
 }
