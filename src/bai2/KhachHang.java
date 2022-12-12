@@ -1,6 +1,9 @@
 package bai2;
 
-public class KhachHang {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class KhachHang implements Serializable {
     private String soCmnd;
     private String tenKh;
     private String gaDen;

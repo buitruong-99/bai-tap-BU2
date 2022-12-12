@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        DanhSachHangDoi dsHangDoi = new DanhSachHangDoi();
+        KhachHangManager dsHangDoi = new KhachHangManager();
         int choose;
         boolean exit = true;
         System.out.println("Chọn chức năng");
@@ -21,45 +21,44 @@ public class Main {
                 "Số bất kỳ để thoát.\n");
         do {
             choose = scanner.nextInt();
-            switch (choose){
+            switch (choose) {
                 case 1:
-                    System.out.print("Nhập số CMND: ");
-                    scanner.nextLine();
-                    String soCMND = scanner.nextLine();
-                    System.out.print("Nhập tên KH: ");
-                    String tenKH = scanner.nextLine();
-                    System.out.print("Nhập ga đến: ");
-                    String gaDen = scanner.nextLine();
-                    System.out.print("Nhập giá vé: ");
-                    double giaVe = scanner.nextDouble();
-                    KhachHang khachHang = new KhachHang(soCMND, tenKH, gaDen, giaVe);
-                    dsHangDoi.themKhachHang(khachHang);
+                    dsHangDoi.themKhachHang();
                     break;
                 case 2:
                     dsHangDoi.banVe();
                     break;
                 case 3:
+                    System.out.println("DANH SÁCH KHÁCH HÀNG CHỜ");
                     System.out.printf("%-20s %-20s %-20s %5s\n", "Số CMND", "Tên KH", "Ga đến", "Giá tiền");
                     dsHangDoi.hienThiDSKhachHang();
+                    System.out.println("---------------------------------------------------------------");
+                    System.out.println("DANH SÁCH KHÁCH HÀNG ĐÃ MUA VÉ");
+                    System.out.printf("%-20s %-20s %-20s %5s\n", "Số CMND", "Tên KH", "Ga đến", "Giá tiền");
+                    dsHangDoi.dsKhachHangDaMuaVe();
+                    System.out.println("---------------------------------------------------------------");
                     break;
                 case 4:
-                     dsHangDoi.xoaKhachHangDSCho();
+                    dsHangDoi.xoaKhachHangDSCho();
                     break;
                 case 5:
                     dsHangDoi.thongKe();
                     break;
                 case 6:
-                    dsHangDoi.saveDs();
+                    dsHangDoi.saveKhachHang();
                     break;
                 case 7:
-                    System.out.printf("%3s %20s\n", "Số STT","Ga đến");
+                    System.out.printf("%3s %20s\n", "Số STT", "Ga đến");
                     dsHangDoi.dsGaChoMuaVe();
                     break;
                 case 8:
-                    System.out.printf("%3s %20s\n", "Số vé","Ga đến");
+                    System.out.printf("%3s %20s\n", "Số vé", "Ga đến");
                     dsHangDoi.dsGaChoVaSoVe();
+                default:
+                    System.out.println("kết thúc");
+                    exit = false;
+                    break;
             }
-
-        }while (exit);
+        } while (exit);
     }
 }
